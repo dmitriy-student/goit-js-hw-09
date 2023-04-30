@@ -4,7 +4,6 @@ const bodyEl = document.body;
 const delay = 1000;
 let timerId = null;
 
-
 startBtn.addEventListener('click', onStartBtn);
 stopBtn.addEventListener('click', onStopBtn);
 
