@@ -6,9 +6,11 @@ let timerId = null;
 
 startBtn.addEventListener('click', onStartBtn);
 stopBtn.addEventListener('click', onStopBtn);
+stopBtn.disabled = true;
 
 function onStartBtn() {
     startBtn.disabled = true;
+    stopBtn.disabled = false;
     timerId = setInterval(() => {
         bodyEl.style.backgroundColor = getRandomHexColor();
     }, delay);
@@ -16,6 +18,7 @@ function onStartBtn() {
 
 function onStopBtn() {
     startBtn.disabled = false;
+    stopBtn.disabled = true;
     clearInterval(timerId);
 }
 

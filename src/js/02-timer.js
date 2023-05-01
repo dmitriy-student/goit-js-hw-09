@@ -4,7 +4,6 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const dateEl = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
-const fieldsEl = Array.from(document.querySelectorAll('.field'));
 
 
 const timerDays = document.querySelector('span[data-days]');
@@ -17,20 +16,6 @@ let timerId = null;
 let setDate;
 let timeToEnd;
 
-
-fieldsEl.forEach(field => {
-  field.style.display = 'inline-block';
-  field.style.marginRight = '15px';
-  field.style.fontFamily = 'Arial, sans-serif';
-  field.querySelector('.value').style.display = 'block';
-  field.querySelector('.value').style.fontSize = '64px';
-  field.querySelector('.value').style.textAlign = 'center';
-  field.querySelector('.value').style.backgroundColor = '#fff700';
-  field.querySelector('.label').style.fontSize = '32px';
-  field.querySelector('.label').style.backgroundColor = 'blue';
-  field.querySelector('.label').style.color = 'white';
-  field.querySelector('.label').style.textAlign = 'center';
-});
 
 flatpickr(dateEl,{ 
     enableTime: true,
@@ -62,20 +47,17 @@ function onStartBtn() {
   
       startBtn.disabled = true;
   
+      if (timeToEnd <= 0) {
+        Notify.success('Success!');
+        clearInterval(timerId);
+        return;
+      }
+
       timerDays.textContent = String(days).padStart(2, "0");
       timerHours.textContent = String(hours).padStart(2, "0");
       timerMinutes.textContent = String(minutes).padStart(2, "0");
       timerSeconds.textContent = String(seconds).padStart(2, "0");
-  
-      if (timeToEnd <= 0) {
-        Notify.success('Success!');
-        clearInterval(timerId);
-        timerDays.textContent = '00';
-        timerHours.textContent = '00';
-        timerMinutes.textContent = '00';
-        timerSeconds.textContent = '00';
-      }
-    }, delay);
+      }, delay);
   }
 
 function convertMs(ms) {
